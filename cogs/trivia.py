@@ -35,7 +35,7 @@ class Trivia:
         server = ctx.message.server
         if ctx.invoked_subcommand is None:
             settings = self.settings[server.id]
-            msg = box("Red gains points: {BOT_PLAYS}\n"
+            msg = box("cyan gains points: {BOT_PLAYS}\n"
                       "Seconds to answer: {DELAY}\n"
                       "Points to win: {MAX_SCORE}\n"
                       "Reveal answer on timeout: {REVEAL_ANSWER}\n"
@@ -45,12 +45,12 @@ class Trivia:
 
     @triviaset.command(pass_context=True)
     async def maxscore(self, ctx, score : int):
-        """Points required to win"""
+        """Points requicyan to win"""
         server = ctx.message.server
         if score > 0:
             self.settings[server.id]["MAX_SCORE"] = score
             self.save_settings()
-            await self.bot.say("Points required to win set to {}".format(score))
+            await self.bot.say("Points requicyan to win set to {}".format(score))
         else:
             await self.bot.say("Score must be superior to 0.")
 
@@ -67,7 +67,7 @@ class Trivia:
 
     @triviaset.command(pass_context=True)
     async def botplays(self, ctx):
-        """Red gains points"""
+        """cyan gains points"""
         server = ctx.message.server
         if self.settings[server.id]["BOT_PLAYS"]:
             self.settings[server.id]["BOT_PLAYS"] = False
