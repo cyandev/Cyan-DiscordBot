@@ -19,7 +19,7 @@ except ImportError:
           "https://twentysix26.github.io/Red-Docs/\n")
     sys.exit()
 except AssertionError:
-    print("Red needs Python 3.5 or superior.\n"
+    print("Red  needs Python 3.5 or superior.\n"
           "Consult the guide for your operating system "
           "and do ALL the steps in order.\n"
           "https://twentysix26.github.io/Red-Docs/\n")
@@ -32,7 +32,7 @@ from collections import Counter
 from io import TextIOWrapper
 
 #
-# Red, a Discord bot by Twentysix, based on discord.py and its command
+# Cyan, a bot made by awes0meGuy360 based on Red, a Discord bot by Twentysix, based on discord.py and its command
 #                             extension.
 #
 #                   https://github.com/Twentysix26/
@@ -44,7 +44,7 @@ from io import TextIOWrapper
 #                 https://github.com/Rapptz/RoboDanny/
 #
 
-description = "Red - A multifunction Discord bot by Twentysix"
+description = "Cyan - A Discord bot by awes0meGuy360 based off of Red by Twentysix26"
 
 
 class Bot(commands.Bot):
