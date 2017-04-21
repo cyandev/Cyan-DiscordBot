@@ -1774,7 +1774,7 @@ class Audio:
 
     @commands.command(pass_context=True, aliases=["next"], no_pm=True)
     async def skip(self, ctx):
-        """Skips a song, using the set threshold if the requester isn't
+        """Skips a song, usin the set threshold if the requester isn't
         a mod or admin. Mods, admins and bot owner are not counted in
         the vote threshold."""
         msg = ctx.message
@@ -1838,14 +1838,6 @@ class Audio:
         alone = nonbots <= 1
 
         return is_owner or is_server_owner or is_admin or is_mod or alone
-
-    @commands.command(pass_context=True, no_pm=True)
-    async def sing(self, ctx):
-        """Makes Red sing one of her songs"""
-        ids = ("zGTkAVsrfg8", "cGMWL8cOeAU", "vFrjMq4aL-g", "WROI5WYBU_A",
-               "41tIUr_ex3g", "f9O2Rjn1azc")
-        url = "https://www.youtube.com/watch?v={}".format(choice(ids))
-        await ctx.invoke(self.play, url_or_search_terms=url)
 
     @commands.command(pass_context=True, no_pm=True)
     async def song(self, ctx):
