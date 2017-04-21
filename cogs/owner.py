@@ -329,7 +329,7 @@ class Owner:
     @_set.command(pass_context=True, no_pm=True)
     @checks.serverowner_or_permissions(administrator=True)
     async def serverprefix(self, ctx, *prefixes):
-        """Sets Red's prefixes for this server
+        """Sets Cyan's prefixes for this server
 
         Accepts multiple prefixes separated by a space. Enclose in double
         quotes if a prefix contains spaces.
@@ -382,7 +382,7 @@ class Owner:
     @_set.command(pass_context=True, no_pm=True)
     @checks.is_owner()
     async def nickname(self, ctx, *, nickname=""):
-        """Sets Red's nickname
+        """Sets Cyan's nickname
 
         Leaving this empty will remove it."""
         nickname = nickname.strip()
@@ -398,7 +398,7 @@ class Owner:
     @_set.command(pass_context=True)
     @checks.is_owner()
     async def game(self, ctx, *, game=None):
-        """Sets Red's playing status
+        """Sets Cyan's playing status
 
         Leaving this empty will clear it."""
 
@@ -419,7 +419,7 @@ class Owner:
     @_set.command(pass_context=True)
     @checks.is_owner()
     async def status(self, ctx, *, status=None):
-        """Sets Red's status
+        """Sets Cyan's status
 
         Statuses:
             online
@@ -454,7 +454,7 @@ class Owner:
     @_set.command(pass_context=True)
     @checks.is_owner()
     async def stream(self, ctx, streamer=None, *, stream_title=None):
-        """Sets Red's streaming status
+        """Sets Cyan's streaming status
 
         Leaving both streamer and stream_title empty will clear it."""
 
@@ -536,7 +536,7 @@ class Owner:
 
     @blacklist.command(name="add")
     async def _blacklist_add(self, user: discord.Member):
-        """Adds user to Red's global blacklist"""
+        """Adds user to Cyan's global blacklist"""
         if user.id not in self.global_ignores["blacklist"]:
             self.global_ignores["blacklist"].append(user.id)
             self.save_global_ignores()
@@ -546,7 +546,7 @@ class Owner:
 
     @blacklist.command(name="remove")
     async def _blacklist_remove(self, user: discord.Member):
-        """Removes user from Red's global blacklist"""
+        """Removes user from Cyan's global blacklist"""
         if user.id in self.global_ignores["blacklist"]:
             self.global_ignores["blacklist"].remove(user.id)
             self.save_global_ignores()
@@ -578,13 +578,13 @@ class Owner:
         """Whitelist management commands
 
         If the whitelist is not empty, only whitelisted users will
-        be able to use Red"""
+        be able to use Cyan"""
         if ctx.invoked_subcommand is None:
             await self.bot.send_cmd_help(ctx)
 
     @whitelist.command(name="add")
     async def _whitelist_add(self, user: discord.Member):
-        """Adds user to Red's global whitelist"""
+        """Adds user to Cyan's global whitelist"""
         if user.id not in self.global_ignores["whitelist"]:
             if not self.global_ignores["whitelist"]:
                 msg = "\nNon-whitelisted users will be ignored."
@@ -598,7 +598,7 @@ class Owner:
 
     @whitelist.command(name="remove")
     async def _whitelist_remove(self, user: discord.Member):
-        """Removes user from Red's global whitelist"""
+        """Removes user from Cyan's global whitelist"""
         if user.id in self.global_ignores["whitelist"]:
             self.global_ignores["whitelist"].remove(user.id)
             self.save_global_ignores()
@@ -627,7 +627,7 @@ class Owner:
     @commands.command()
     @checks.is_owner()
     async def shutdown(self, silently : bool=False):
-        """Shuts down Red"""
+        """Shuts down Cyan"""
         wave = "\N{WAVING HAND SIGN}"
         skin = "\N{EMOJI MODIFIER FITZPATRICK TYPE-3}"
         try: # We don't want missing perms to stop our shutdown
@@ -640,7 +640,7 @@ class Owner:
     @commands.command()
     @checks.is_owner()
     async def restart(self, silently : bool=False):
-        """Attempts to restart Red
+        """Attempts to restart Cyan
 
         Makes Red quit with exit code 26
         The restart is not guaranteed: it must be dealt
@@ -726,7 +726,7 @@ class Owner:
     @commands.command()
     @checks.is_owner()
     async def join(self):
-        """Shows Red's invite URL"""
+        """Shows Cyan's invite URL"""
         if self.bot.user.bot:
             await self.bot.whisper("Invite URL: " + self.bot.oauth_url)
         else:
@@ -835,8 +835,8 @@ class Owner:
 
     @commands.command()
     async def info(self):
-        """Shows info about Red"""
-        author_repo = "https://github.com/Twentysix26"
+        """Shows info about Cyan"""
+        author_repo = "https://github.com/cyan-dev"
         red_repo = author_repo + "/Red-DiscordBot"
         server_url = "https://discord.gg/red"
         dpy_repo = "https://github.com/Rapptz/discord.py"
@@ -860,8 +860,8 @@ class Owner:
             owner = "Unknown"
 
         about = (
-            "This is an instance of [Red, an open source Discord bot]({}) "
-            "created by [Twentysix]({}) and improved by many.\n\n"
+            "This is an instance of Cyan, an open source Discord bot]({}) "
+            "created by awes0meGuy360 and based on red by [Twentysix]({}) which is improved by many.\n\n"
             "Red is backed by a passionate community who contributes and "
             "creates content for everyone to enjoy. [Join us today]({}) "
             "and help us improve!\n\n"
@@ -891,7 +891,7 @@ class Owner:
 
     @commands.command()
     async def version(self):
-        """Shows Red's current version"""
+        """Shows Cyan's current version"""
         response = self.bot.loop.run_in_executor(None, self._get_version)
         result = await asyncio.wait_for(response, timeout=10)
         try:
