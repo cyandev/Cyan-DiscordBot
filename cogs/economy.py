@@ -590,8 +590,8 @@ class Economy:
         if not payout:
             # Still nothing. Let's check for 3 generic same symbols
             # or 2 consecutive symbols
-            has_three = rows[1][0] == rows[1][1] == rows[1][2]
-            has_two = (rows[1][0] == rows[1][1]) or (rows[1][1] == rows[1][2])
+            has_three = (rows[1][0] == rows[1][1] == rows[1][2]) or (rows[0][0] == rows[0][1] == rows[0][2]) or (rows[2][0] == rows[2][1] == rows[2][2])
+            has_two = (rows[1][0] == rows[1][1]) or (rows[1][1] == rows[1][2]) or (rows[0][0] == rows[0][1]) or (rows[2][0] == rows[2][1]) or (rows[2][1] == rows[2][2])
             if has_three:
                 payout = PAYOUTS["3 symbols"]
             elif has_two:
