@@ -318,7 +318,7 @@ class Economy:
                                "".format(author.mention, account.balance))
         except AccountAlreadyExists:
             await self.bot.say("{} You already have an account at the"
-                               " Twentysix bank.".format(author.mention))
+                               " Cyan bank.".format(author.mention))
 
     @_bank.command(pass_context=True)
     async def balance(self, ctx, user: discord.Member=None):
@@ -362,16 +362,16 @@ class Economy:
             await self.bot.say("That user has no bank account.")
 
     @_bank.command(name="set", pass_context=True)
-    @checks.admin_or_permissions(manage_server=True)
+    @checks.is_owner()
     async def _set(self, ctx, user: discord.Member, credits: SetParser):
         """Sets credits of user's bank account. See help for more operations
 
         Passing positive and negative values will add/remove credits instead
 
         Examples:
-            bank set @Twentysix 26 - Sets 26 credits
-            bank set @Twentysix +2 - Adds 2 credits
-            bank set @Twentysix -6 - Removes 6 credits"""
+            bank set @Cyan 26 - Sets 26 credits
+            bank set @Cyan +2 - Adds 2 credits
+            bank set @Cyan -6 - Removes 6 credits"""
         author = ctx.message.author
         try:
             if credits.operation == "deposit":
