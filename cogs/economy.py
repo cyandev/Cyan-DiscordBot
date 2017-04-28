@@ -60,19 +60,16 @@ NUM_ENC = "\N{COMBINING ENCLOSING KEYCAP}"
 class SMReel(Enum):
     cherries  = "\N{CHERRIES}"
     cookie    = "\N{COOKIE}"
-    two       = "\N{DIGIT TWO}" + NUM_ENC
+    seven     = "\N{DIGIT SEVEN}" + NUM_ENC
     flc       = "\N{FOUR LEAF CLOVER}"
     cyclone   = "\N{CYCLONE}"
-    sunflower = "\N{SUNFLOWER}"
-    six       = "\N{DIGIT TWO}" + NUM_ENC
-    mushroom  = "\N{MUSHROOM}"
     heart     = "\N{HEAVY BLACK HEART}"
     snowflake = "\N{SNOWFLAKE}"
 
 PAYOUTS = {
-    (SMReel.two, SMReel.two, SMReel.six) : {
-        "payout" : lambda x: x * 2500 + x,
-        "phrase" : "JACKPOT! 226! Your bid has been multiplied * 2500!"
+    (SMReel.seven, SMReel.seven, SMReel.seven) : {
+        "payout" : lambda x: x * 7000 + x,
+        "phrase" : "JACKPOT! 777! Your bid has been multiplied * 7000!"
     },
     (SMReel.flc, SMReel.flc, SMReel.flc) : {
         "payout" : lambda x: x + 1000,
@@ -82,9 +79,9 @@ PAYOUTS = {
         "payout" : lambda x: x + 800,
         "phrase" : "Three cherries! +800!"
     },
-    (SMReel.two, SMReel.six) : {
+    (SMReel.seven, SMReel.seven) : {
         "payout" : lambda x: x * 4 + x,
-        "phrase" : "2 6! Your bid has been multiplied * 4!"
+        "phrase" : "7 7! Your bid has been multiplied * 4!"
     },
     (SMReel.cherries, SMReel.cherries) : {
         "payout" : lambda x: x * 3 + x,
@@ -97,6 +94,10 @@ PAYOUTS = {
     "2 symbols" : {
         "payout" : lambda x: x * 2 + x,
         "phrase" : "Two consecutive symbols! Your bid has been multiplied * 2!"
+    },
+    "diagonal" : {
+        "payout" : lambda x: x * 3 + x,
+        "phrase" : "Diagonal! Your bid has been multiplied * 3!"
     },
 }
 
@@ -592,7 +593,10 @@ class Economy:
             # or 2 consecutive symbols
             has_three = (rows[1][0] == rows[1][1] == rows[1][2]) or (rows[0][0] == rows[0][1] == rows[0][2]) or (rows[2][0] == rows[2][1] == rows[2][2]) or (rows[0][0] == rows[1][0] == rows[2][0]) or (rows[0][1] == rows[1][1] == rows[2][1]) or (rows[0][2] == rows[1][2] == rows[2][2])
             has_two = (rows[1][0] == rows[1][1]) or (rows[1][1] == rows[1][2]) or (rows[0][0] == rows[0][1]) or (rows[2][0] == rows[2][1]) or (rows[2][1] == rows[2][2])
-            if has_three:
+            has_diagonal = (rows[0][0] == rows[1][1] == rows[2][2]) or (rows[2][0] == rows[1][1] == rows[0][2])
+            if has diagonal:
+                payout = PAYOUTS["diagonal"]
+            elif has_three:
                 payout = PAYOUTS["3 symbols"]
             elif has_two:
                 payout = PAYOUTS["2 symbols"]
