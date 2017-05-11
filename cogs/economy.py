@@ -59,21 +59,32 @@ NUM_ENC = "\N{COMBINING ENCLOSING KEYCAP}"
 
 class SMReel(Enum):
     cherries  = "\N{CHERRIES}"
-    cookie    = "\N{DIAMOND SHAPE WITH A DOT INSIDE}"
-    seven     = "\N{DIGIT SEVEN}" + NUM_ENC
-    flc       = "\N{LARGE BLUE DIAMOND}"
+    cookie    = "\N{COOKIE}"
+    two       = "\N{DIGIT TWO}" + NUM_ENC
+    flc       = "\N{FOUR LEAF CLOVER}"
     cyclone   = "\N{CYCLONE}"
-    heart     = "\N{LARGE BLUE CIRCLE}"
+    sunflower = "\N{SUNFLOWER}"
+    six       = "\N{DIGIT SIX}" + NUM_ENC
+    mushroom  = "\N{MUSHROOM}"
+    heart     = "\N{HEAVY BLACK HEART}"
     snowflake = "\N{SNOWFLAKE}"
 
 PAYOUTS = {
-    (SMReel.seven, SMReel.seven, SMReel.seven) : {
-        "payout" : lambda x: x * 7000 + x,
-        "phrase" : "JACKPOT! 777! Your bid has been multiplied * 7000!"
+    (SMReel.two, SMReel.two, SMReel.six) : {
+        "payout" : lambda x: x * 2500 + x,
+        "phrase" : "JACKPOT! 226! Your bid has been multiplied * 2500!"
     },
-    (SMReel.seven, SMReel.seven) : {
+    (SMReel.flc, SMReel.flc, SMReel.flc) : {
+        "payout" : lambda x: x + 1000,
+        "phrase" : "4LC! +1000!"
+    },
+    (SMReel.cherries, SMReel.cherries, SMReel.cherries) : {
+        "payout" : lambda x: x + 800,
+        "phrase" : "Three cherries! +800!"
+    },
+    (SMReel.two, SMReel.six) : {
         "payout" : lambda x: x * 4 + x,
-        "phrase" : "7 7! Your bid has been multiplied * 4!"
+        "phrase" : "2 6! Your bid has been multiplied * 4!"
     },
     (SMReel.cherries, SMReel.cherries) : {
         "payout" : lambda x: x * 3 + x,
@@ -271,7 +282,6 @@ class SetParser:
 
 class Economy:
     """Economy
-
     Get rich and have fun with imaginary currency!"""
 
     def __init__(self, bot):
@@ -307,12 +317,11 @@ class Economy:
                                "".format(author.mention, account.balance))
         except AccountAlreadyExists:
             await self.bot.say("{} You already have an account at the"
-                               " Cyan bank.".format(author.mention))
+                               " Twentysix bank.".format(author.mention))
 
     @_bank.command(pass_context=True)
     async def balance(self, ctx, user: discord.Member=None):
         """Shows balance of user.
-
         Defaults to yours."""
         if not user:
             user = ctx.message.author
@@ -351,16 +360,14 @@ class Economy:
             await self.bot.say("That user has no bank account.")
 
     @_bank.command(name="set", pass_context=True)
-    @checks.is_owner()
+    @checks.admin_or_permissions(manage_server=True)
     async def _set(self, ctx, user: discord.Member, credits: SetParser):
         """Sets credits of user's bank account. See help for more operations
-
         Passing positive and negative values will add/remove credits instead
-
         Examples:
-            bank set @Cyan 26 - Sets 26 credits
-            bank set @Cyan +2 - Adds 2 credits
-            bank set @Cyan -6 - Removes 6 credits"""
+            bank set @Twentysix 26 - Sets 26 credits
+            bank set @Twentysix +2 - Adds 2 credits
+            bank set @Twentysix -6 - Removes 6 credits"""
         author = ctx.message.author
         try:
             if credits.operation == "deposit":
@@ -442,7 +449,6 @@ class Economy:
     @commands.group(pass_context=True)
     async def leaderboard(self, ctx):
         """Server / global leaderboard
-
         Defaults to server"""
         if ctx.invoked_subcommand is None:
             await ctx.invoke(self._server_leaderboard)
@@ -450,7 +456,6 @@ class Economy:
     @leaderboard.command(name="server", pass_context=True)
     async def _server_leaderboard(self, ctx, top: int=10):
         """Prints out the server's leaderboard
-
         Defaults to top 10"""
         # Originally coded by Airenkun - edited by irdumb
         server = ctx.message.server
@@ -478,7 +483,6 @@ class Economy:
     @leaderboard.command(name="global")
     async def _global_leaderboard(self, top: int=10):
         """Prints out the global leaderboard
-
         Defaults to top 10"""
         if top < 1:
             top = 10
@@ -579,8 +583,8 @@ class Economy:
         if not payout:
             # Still nothing. Let's check for 3 generic same symbols
             # or 2 consecutive symbols
-            has_three = (rows[1][0] == rows[1][1] == rows[1][2]) or (rows[0][0] == rows[0][1] == rows[0][2]) or (rows[2][0] == rows[2][1] == rows[2][2]) or (rows[0][0] == rows[1][0] == rows[2][0]) or (rows[0][1] == rows[1][1] == rows[2][1]) or (rows[0][2] == rows[1][2] == rows[2][2])
-            has_two = (rows[1][0] == rows[1][1]) or (rows[1][1] == rows[1][2]) or (rows[0][0] == rows[0][1]) or (rows[2][0] == rows[2][1]) or (rows[2][1] == rows[2][2])
+            has_three = rows[1][0] == rows[1][1] == rows[1][2]
+            has_two = (rows[1][0] == rows[1][1]) or (rows[1][1] == rows[1][2])
             if has_three:
                 payout = PAYOUTS["3 symbols"]
             elif has_two:
